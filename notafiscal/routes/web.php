@@ -46,6 +46,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('admin', function(){
+    return view('admin.dashboard');
+})->middleware('auth');
+
+Route::get('/notificacao', 'NotaFiscalController@notificacao');
+
 Route::get('/teste', 'NotaFiscalController@printNf');
 
 Route::get('/testeQB', 'NotaFiscalController@testeQB');
@@ -59,6 +65,10 @@ Route::get('/welcome', 'NotaFiscalController@welcome');
 Route::get('testeFlash', function(){
     return view('admin.dashboard');
 })->name('testeFlash');
+
+Route::get('/', function(){
+    return view('admin.login');
+});
 
 //Route::resource('notafiscal', 'NotaFiscalController');
 

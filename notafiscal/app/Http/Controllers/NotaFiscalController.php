@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\User;
 
 class NotaFiscalController extends Controller
 {
@@ -29,5 +30,12 @@ class NotaFiscalController extends Controller
     {
         flash('Deu certo a inclusão das mensagens!')->success();
         return redirect()->route('testeFlash');
+    }
+
+    public function notificacao()
+    {
+        $user = new User();
+        $user->testeNotificacao();
+        return view('admin.dashboard');
     }
 }

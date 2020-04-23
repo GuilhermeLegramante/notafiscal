@@ -27,7 +27,7 @@
                 <p class="login-box-msg">{{ __('adminlte::adminlte.password_reset_message') }}</p>
                 @if (session('status'))
                     <div class="alert alert-success">
-                        {{ session('status') }}
+                        E-mail enviado com sucesso!
                     </div>
                 @endif
                 <form action="{{ $password_email_url }}" method="post">
@@ -41,7 +41,10 @@
                         </div>
                         @if ($errors->has('email'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
+                                @if ($errors->first('email') == 'passwords.throttled')
+                                    Um e-mail foi enviado recentemente. Tente novamente em instantes.
+                                @endif
+                                
                             </div>
                         @endif
                     </div>

@@ -26,7 +26,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">{{ trans('adminlte::adminlte.password_reset_message') }}</p>
                 <form action="{{ $password_reset_url }}" method="post">
-                    {{ csrf_field() }}
+                    {{ csrf_field() }}                   
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ trans('adminlte::adminlte.email') }}" autofocus>
@@ -37,7 +37,12 @@
                         </div>
                         @if ($errors->has('email'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('email') }}</strong>
+                                @if ($errors->first('email') == 'validation.required') 
+                                   <strong>O campo email é obrigatório</strong> 
+                                @endif
+                                @if ($errors->first('email') == 'passwords.token') 
+                                   <strong>Token expirado. Solicite novamente a redefinição de senha.</strong> 
+                                @endif
                             </div>
                         @endif
                     </div>
@@ -50,7 +55,16 @@
                         </div>
                         @if ($errors->has('password'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                @if ($errors->first('password') == 'validation.required') 
+                                    <strong>O campo senha é obrigatório</strong> 
+                                @endif
+                                @if ($errors->first('password') == 'validation.min.string') 
+                                    <strong>A senha deve conter no mínimo 6 caracteres</strong> 
+                                @endif
+                                @if ($errors->first('password') == 'validation.confirmed') 
+                                    <strong>Repita a senha no campo abaixo</strong> 
+                                @endif
+
                             </div>
                         @endif
                     </div>

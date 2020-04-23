@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -17,7 +16,7 @@ class ResetPasswordController extends Controller
     | and uses a simple trait to include this behavior. You're free to
     | explore this trait and override any methods you wish to tweak.
     |
-    */
+     */
 
     use ResetsPasswords;
 
@@ -27,4 +26,11 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = '/admin';
+
+    public function showResetForm(\Illuminate\Http\Request $request)
+    {
+        return view('auth.passwords.reset')->with(
+            ['token' => $request->route('token'), 'email' => $request->email]
+        );
+    }
 }
