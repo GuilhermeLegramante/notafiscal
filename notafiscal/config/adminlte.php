@@ -12,10 +12,10 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#61-title
     |
-    */
+     */
 
-    'title' => 'ISS online',
-    'title_prefix' => 'HS - ',
+    'title' => 'hs NFS-e',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -28,7 +28,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#62-favicon
     |
-    */
+     */
 
     'use_ico_only' => false,
     'use_full_favicon' => false,
@@ -43,14 +43,14 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#63-logo
     |
-    */
+     */
 
-    'logo' => '<b>HS - </b>ISS online',
+    'logo' => '<b>hs</b> NFS-e',
     'logo_img' => 'vendor/adminlte/dist/img/logo.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'HardSoft',
+    'logo_img_alt' => 'AdminLTE',
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#64-user-menu
     |
-    */
+     */
 
     'usermenu_enabled' => true,
     'usermenu_header' => false,
@@ -80,7 +80,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#65-layout
     |
-    */
+     */
 
     'layout_topnav' => null,
     'layout_boxed' => null,
@@ -98,7 +98,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#66-classes
     |
-    */
+     */
 
     'classes_body' => '',
     'classes_brand' => '',
@@ -121,7 +121,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#67-sidebar
     |
-    */
+     */
 
     'sidebar_mini' => true,
     'sidebar_collapse' => false,
@@ -143,7 +143,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#68-control-sidebar-right-sidebar
     |
-    */
+     */
 
     'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
@@ -163,11 +163,11 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#69-urls
     |
-    */
+     */
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
 
     'logout_url' => 'logout',
 
@@ -191,7 +191,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#610-laravel-mix
     |
-    */
+     */
 
     'enabled_laravel_mix' => false,
 
@@ -205,87 +205,44 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#611-menu
     |
-    */
+     */
 
     'menu' => [
+        
+
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text' => 'Contribuintes',
+            'icon' => 'fas fa-users',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => ' Cadastrar Prestador',
+                    'url' => 'admin/cadastrarPrestador',
+                    'icon' => 'fas fa-user-plus',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => ' Ver Prestadores',
+                    'url' => 'admin/prestadores',
+                    'icon' => 'far fa-eye',
                 ],
             ],
         ],
-        ['header' => 'labels'],
+
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'aqua',
+            'text' => 'Nota Fiscal',
+            'icon' => 'fas fa-dollar-sign',
+            'can' => 'fiscal',
+            'submenu' => [
+                [
+                    'text' => 'Nova NFS-e',
+                    'url' => 'admin/novaNotaFiscal',
+                    'icon' => 'fas fa-user-plus',
+                ],
+                [
+                    'text' => ' Ver todas NFS-e',
+                    'url' => 'admin/notasFiscais',
+                    'icon' => 'far fa-eye',
+                ],
+            ],
         ],
     ],
 
@@ -299,8 +256,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#612-menu-filters
     |
-    */
-
+     */
 
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
@@ -322,7 +278,7 @@ return [
     | For more detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/#613-plugins
     |
-    */
+     */
 
     'plugins' => [
         [

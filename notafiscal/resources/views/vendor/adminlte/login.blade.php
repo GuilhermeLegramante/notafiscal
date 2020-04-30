@@ -30,15 +30,15 @@
 
 @section('body')
     <div class="login-page" style="background-image: url('vendor/adminlte/dist/img/analytics-solutions.jpg');
-    background-size: cover; width:100%;">
-        <div class="login-box" style="background: #ffffff; opacity: 90%;">
+    background-size: cover; width:100%; opacity:70%;">
+        <div class="login-box" style="background: #ffffff; opacity: 100%; position: absolute; z-index: 99;">
             <div class="login-logo">
                 <img style="width:150px;" src="vendor/adminlte/dist/img/logo.jpg" alt=""><br>
                 <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
             </div>
 
             <div class="card">
-                <div class="card-body login-card-body" style="opacity: 100%;">
+                <div class="card-body login-card-body" style="opacity: 200%;">
                     <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
                     <form action="{{ $login_url }}" method="post">
                         {{ csrf_field() }}

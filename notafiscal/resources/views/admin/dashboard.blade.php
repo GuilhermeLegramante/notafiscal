@@ -6,6 +6,18 @@
 @section('content_header')
 <h1>Dashboard</h1>
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+ 
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 @stop
 
 @section('content')
@@ -20,14 +32,12 @@
 @include('flash::message')
 
 
-
-<p>Welcome to this beautiful admin panel.</p>
 @stop
 
 @section('plugins.Datatables', true)
 
 @section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')

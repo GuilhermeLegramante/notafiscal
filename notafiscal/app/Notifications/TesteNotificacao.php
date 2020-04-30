@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class TesteNotificacao extends Notification
 {
     use Queueable;
+    
 
     /**
      * Create a new notification instance.
@@ -41,8 +42,8 @@ class TesteNotificacao extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Recuperação de Senha - Equipe HardSoft')
-            ->line('Você está recebendo este e-mail porque recebemos um pedido de redefinição de senha para sua conta.')
+            ->subject('Teste de Notificação')
+            ->line('Teste de notificação blá blá blá.')
             ->line('Este link é válido pelos próximos 60 minutos.')
             ->action('Resetar Senha', url(config('app.url'.'laravel/notafiscal/public/') . route('password.reset', false)))
             ->line('Se você não solicitou uma alteração da senha, nenhuma ação adicional é necessária.');

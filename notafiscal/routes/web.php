@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+/*
+Rotas de teste 
+*/ 
 Route::get('/teste2', function () {
     $array = ['sdkfj', 'dsjflkl', 'lksdjfl'];
 
@@ -40,38 +43,47 @@ Route::get('/', function () {
     return view('welcome', compact('obj'));
 });
 
-// Route::get('/{name}', function ($name) {
-//     return view('welcome', compact($name));
-// });
-
-Auth::routes();
-
-Route::get('admin', function(){
-    return view('admin.dashboard');
-})->middleware('auth');
 
 Route::get('/notificacao', 'NotaFiscalController@notificacao');
-
-Route::get('/teste', 'NotaFiscalController@printNf');
-
-Route::get('/testeQB', 'NotaFiscalController@testeQB');
-
-Route::get('/login-old', 'NotaFiscalController@logar');
 
 Route::get('/testeShow/{id}', 'NotaFiscalController@showById')->name('showById');
 
 Route::get('/welcome', 'NotaFiscalController@welcome');
 
-Route::get('testeFlash', function(){
+Route::get('testeFlash', function () {
     return view('admin.dashboard');
 })->name('testeFlash');
 
-Route::get('/', function(){
-    return view('admin.login');
-});
+Route::post('testeAjax', 'PrestadorController@testeAjax')->name('testeAjax');
 
-//Route::resource('notafiscal', 'NotaFiscalController');
+Route::get('testeGate', function(){
+    return view('admin.novoPrestador');
+})->middleware('can:fiscal');
+
+// Fim rotas de teste
+
+
+
+/*
+    Rotas válidas
+*/
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Route::get('admin', function () {
+    return view('admin.dashboard');
+})->middleware('auth')->name('admin');
+
+Route::resource('prestadores', 'PrestadorController');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('admin/prestadores', 'PrestadorController@index');
+    Route::get('admin/cadastrarPrestador', 'PrestadorController@cadastrarPrestador')->name('cadastrarPrestador');
+    Route::get('admin/detalhesPrestador/{id}', 'PrestadorController@detalhesPrestador')->name('detalhesPrestador');    
+});
+
+

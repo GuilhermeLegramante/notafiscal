@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\User;
+use App\Notifications\TesteNotificacao;
+use App\Http\Controllers\Auth;
 
 class NotaFiscalController extends Controller
 {
@@ -34,8 +36,12 @@ class NotaFiscalController extends Controller
 
     public function notificacao()
     {
-        $user = new User();
-        $user->testeNotificacao();
+        $user = auth()->user();
+
+        //$user->testeNotificacao();
+        $user->notify(new TesteNotificacao());
+
+        flash('Email enviado com sucesso!')->success();
         return view('admin.dashboard');
     }
 }
