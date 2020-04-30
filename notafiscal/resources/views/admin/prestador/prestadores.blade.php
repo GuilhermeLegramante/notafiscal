@@ -4,7 +4,7 @@
 @section('title', 'Prestadores')
 
 @section('content_header')
-<h1>Prestadores</h1>
+<h1>Prestadores</h1><br>
 
 @if(session('success'))
     <div class="alert alert-success">
@@ -49,8 +49,8 @@
                             <td>{{$prestador->telefone}}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('detalhesPrestador', $prestador->id ) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Detalhar"><i class="fas fa-info-circle"></i></a>
-                                    <a href="" class="btn btn-success btn-sm" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('prestador.detalhes', $prestador->id ) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Detalhar"><i class="fas fa-info-circle"></i></a>
+                                    <a href="{{ route('prestador.edicao', $prestador->id ) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>
                                     <a href="" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Excluir"><i class="fas fa-trash"></i></a>    
                                 </div>
                             </td>

@@ -4,7 +4,7 @@
 
 @section('content')
 <h3 style="margin-top: -20px;">Dados Gerais</h3>
-<form id="" action="{{ route('prestadores.store') }}" class="form" method="post">
+<form id="" action="{{ route('prestador.salvar') }}" class="form" method="post">
 <div class="card">
     <div class="card-body">  
         @csrf

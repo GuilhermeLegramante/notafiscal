@@ -15,7 +15,6 @@ class PrestadorController extends Controller
         $this->repository = $prestador;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +32,10 @@ class PrestadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function cadastro()
     {
-        //
+        $escritorios = Escritorio::all();
+        return view('admin.prestador.cadastro', compact('escritorios'));
     }
 
     /**
@@ -44,25 +44,16 @@ class PrestadorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Prestador $prestador)
+    public function salvar(Request $request, Prestador $prestador)
     {
 
-        // Insere um novo prestador, de acordo com os dados informados pelo usuário
         $insert = $prestador->create($request->all());
 
-        // Verifica se inseriu com sucesso
-        // Redireciona para a listagem das categorias
-        // Passa uma session flash success (sessão temporária)
         if ($insert) {
-            return redirect()
-                ->route('admin')
-                ->with('success', 'Prestador inserido com sucesso!');
+            return redirect()->route('admin')->with('success', 'Prestador inserido com sucesso!');
         }
 
-        // Redireciona de volta com uma mensagem de erro
-        return redirect()
-            ->back()
-            ->with('error', 'Falha ao inserir');
+        return redirect()->back()->with('error', 'Falha ao inserir');
 
     }
 
@@ -72,16 +63,16 @@ class PrestadorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function detalhesPrestador($id)
+    public function detalhes($id)
     {
         $prestador = $this->repository->find($id);
         $escritorio = Escritorio::where('id', '=', $prestador->escritorio_id)->first();
 
-        if(!$prestador){
+        if (!$prestador) {
             return redirect()->back();
         }
 
-        return view('admin.prestador.detalhesPrestador', compact('prestador', 'escritorio'));
+        return view('admin.prestador.detalhes', compact('prestador', 'escritorio'));
     }
 
     /**
@@ -90,9 +81,17 @@ class PrestadorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editar($id)
     {
-        //
+        $prestador = $this->repository->find($id);
+        $escritorio = Escritorio::where('id', '=', $prestador->escritorio_id)->first();
+        $escritorios = Escritorio::all();
+
+        if (!$prestador) {
+            return redirect()->back();
+        }
+
+        return view('admin.prestador.edicao', compact('prestador', 'escritorio', 'escritorios'));
     }
 
     /**
@@ -102,9 +101,22 @@ class PrestadorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function atualizar(Request $request, $id)
     {
-        //
+        $prestador = $this->repository->find($id);
+
+        if (!$prestador) {
+            return redirect()->back();
+        }
+
+        $insert = $prestador->update($request->all());
+
+        if ($insert) {
+            return redirect()->route('prestadores')->with('success', 'Dados do Prestador alterados com sucesso!');
+        }
+
+        return redirect()->back()->with('error', 'Falha ao inserir');
+
     }
 
     /**
@@ -116,14 +128,6 @@ class PrestadorController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function cadastrarPrestador()
-    {
-        $escritorios = Escritorio::all();
-
-        return view('admin.prestador.cadastrarPrestador', compact('escritorios'));
-
     }
 
     public function testeAjax(Request $request)

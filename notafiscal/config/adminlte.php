@@ -216,7 +216,7 @@ return [
             'submenu' => [
                 [
                     'text' => ' Cadastrar Prestador',
-                    'url' => 'admin/cadastrarPrestador',
+                    'url' => 'admin/prestador/cadastro',
                     'icon' => 'fas fa-user-plus',
                 ],
                 [
@@ -234,12 +234,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Nova NFS-e',
-                    'url' => 'admin/novaNotaFiscal',
+                    'url' => 'admin/notafiscal/cadastro',
                     'icon' => 'fas fa-user-plus',
                 ],
                 [
                     'text' => ' Ver todas NFS-e',
-                    'url' => 'admin/notasFiscais',
+                    'url' => 'admin/notafiscal/notasfiscais',
                     'icon' => 'far fa-eye',
                 ],
             ],

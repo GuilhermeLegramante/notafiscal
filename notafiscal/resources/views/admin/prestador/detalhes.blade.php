@@ -214,10 +214,6 @@
     </div>
 </div>
 
-
-
-
-
 @endsection
 
 @section('plugins.Datatables', true)

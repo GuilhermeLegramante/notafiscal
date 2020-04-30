@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('fiscal', function(User $user){
             return $user->tipo == 'fiscal';
         });
+
+        Gate::define('prestador', function(User $user){
+            return $user->tipo == 'prestador';
+        });
     }
 }

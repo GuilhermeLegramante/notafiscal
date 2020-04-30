@@ -16,39 +16,9 @@ use Illuminate\Support\Facades\Route;
 /*
 Rotas de teste 
 */ 
-Route::get('/teste2', function () {
-    $array = ['sdkfj', 'dsjflkl', 'lksdjfl'];
-
-    $array2 = [
-        [
-            'nome' => 'Guilherme',
-        ],
-        [
-            'nome' => 'João',
-        ],
-    ];
-
-    return $array2;
-});
-
-Route::get('/contato/{name}', function ($name) {
-    return "Olá Mundo! {$name}";
-});
-
-Route::get('/', function () {
-    $teste = [
-        'nome' => 'Guilherme',
-    ];
-    $obj = (object) $teste;
-    return view('welcome', compact('obj'));
-});
 
 
-Route::get('/notificacao', 'NotaFiscalController@notificacao');
 
-Route::get('/testeShow/{id}', 'NotaFiscalController@showById')->name('showById');
-
-Route::get('/welcome', 'NotaFiscalController@welcome');
 
 Route::get('testeFlash', function () {
     return view('admin.dashboard');
@@ -78,12 +48,17 @@ Route::get('admin', function () {
     return view('admin.dashboard');
 })->middleware('auth')->name('admin');
 
-Route::resource('prestadores', 'PrestadorController');
-
-Route::group(['middleware' => 'auth'], function(){
-    Route::get('admin/prestadores', 'PrestadorController@index');
-    Route::get('admin/cadastrarPrestador', 'PrestadorController@cadastrarPrestador')->name('cadastrarPrestador');
-    Route::get('admin/detalhesPrestador/{id}', 'PrestadorController@detalhesPrestador')->name('detalhesPrestador');    
+// CRUD Prestador
+Route::group(['middleware' => ['auth', 'can:fiscal']], function(){
+    Route::get('admin/prestadores', 'PrestadorController@index')->name('prestadores');
+    Route::get('admin/prestador/cadastro', 'PrestadorController@cadastro')->name('prestador.cadastro');
+    Route::post('admin/prestador/salvar', 'PrestadorController@salvar')->name('prestador.salvar');
+    Route::get('admin/prestador/detalhes/{id}', 'PrestadorController@detalhes')->name('prestador.detalhes');
+    Route::get('admin/prestador/edicao/{id}', 'PrestadorController@editar')->name('prestador.edicao');
+    Route::put('admin/prestadores/{id}', 'PrestadorController@atualizar')->name('prestador.atualizar'); 
 });
+
+
+
 
 
