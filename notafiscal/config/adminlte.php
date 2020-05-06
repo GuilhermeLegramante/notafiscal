@@ -213,6 +213,7 @@ return [
         [
             'text' => 'Contribuintes',
             'icon' => 'fas fa-users',
+            'can' => 'fiscal',
             'submenu' => [
                 [
                     'text' => ' Cadastrar Prestador',
@@ -222,6 +223,16 @@ return [
                 [
                     'text' => ' Ver Prestadores',
                     'url' => 'fiscal/prestadores',
+                    'icon' => 'far fa-eye',
+                ],
+                [
+                    'text' => ' Cadastrar Tomador',
+                    'url' => 'fiscal/tomador/cadastro',
+                    'icon' => 'fas fa-user-plus',
+                ],
+                [
+                    'text' => ' Ver Tomadores',
+                    'url' => 'fiscal/tomadores',
                     'icon' => 'far fa-eye',
                 ],
             ],
@@ -235,12 +246,12 @@ return [
                 [
                     'text' => 'Nova NFS-e',
                     'url' => 'fiscal/notafiscal/cadastro',
-                    'icon' => 'fas fa-user-plus',
+                    'icon' => 'fas fa-file-alt',
                 ],
                 [
-                    'text' => ' Ver todas NFS-e',
+                    'text' => 'NFS-e(s) emitida(s)',
                     'url' => 'fiscal/notafiscal/notasfiscais',
-                    'icon' => 'far fa-eye',
+                    'icon' => 'far fa-newspaper',
                 ],
             ],
         ],

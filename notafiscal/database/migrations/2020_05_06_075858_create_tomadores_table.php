@@ -18,8 +18,6 @@ class CreateTomadoresTable extends Migration
             $table->string('cpfcnpj')->unique;
             $table->string('razaosocial');
             $table->string('nomefantasia')->nullable();
-            $table->string('inscricaomunicipal');
-            $table->string('inscricaoestadual')->nullable();
             $table->string('email');
             $table->string('telefone');
             $table->string('cep');

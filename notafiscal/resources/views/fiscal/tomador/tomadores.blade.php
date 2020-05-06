@@ -1,24 +1,24 @@
 @extends('adminlte::page')
 
 
-@section('title', 'Prestadores')
+@section('title', 'Tomadores')
 
 @section('content_header')
-<h1>Prestadores</h1><br>
+    <h1>Tomadores</h1><br>
 
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
- 
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
-@stop
+@endsection
 
 @section('content')
 
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <br>
                         <label>Busca</label>
-                        <form action="{{ route('prestador.buscaPelaRazaoSocial') }}" method="POST" class="form form-inline">
+                        <form action="{{ route('tomador.buscaPelaRazaoSocial') }}" method="POST" class="form form-inline">
                             @csrf
                         <input style="height: 70%; width: 40%; margin-right: 1%;" type="text" name="pesquisa" id="pesquisa" title="Razão Social ou Nome Fantasia" placeholder="Razão Social ou Nome Fantasia" class="form-control" value="{{ $pesquisa['pesquisa'] ?? '' }}">
                             <button type="submit" class="btn btn-dark btn-sm " title="Pesquisar"><i class="fas fa-search"></i></button>
@@ -42,8 +42,8 @@
                     <div class="form-group">
                         <br>
                         <div class="btn-group" role="group">
-                            <a href="{{route('prestador.verTodos')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Ver Todos"><i class="fas fa-clipboard-list"></i></a>
-                            <a href="{{route('prestadores')}}" class="btn btn-success btn-sm" title="Ver Paginação"><i class="fas fa-list"></i></a>
+                            <a href="{{route('tomador.verTodos')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Ver Todos"><i class="fas fa-clipboard-list"></i></a>
+                            <a href="{{route('tomadores')}}" class="btn btn-success btn-sm" title="Ver Paginação"><i class="fas fa-list"></i></a>
                         </div>
                     </div>   
                 </div>
@@ -64,17 +64,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($prestadores as $prestador )
+                    @foreach ($tomadores as $tomador )
                         <tr>
-                            <td>{{$prestador->cpfcnpj}}</td>
-                            <td>{{$prestador->razaosocial}}</td>
-                            <td>{{$prestador->nomefantasia}}</td>
-                            <td>{{$prestador->email}}</td>
-                            <td>{{$prestador->telefone}}</td>
+                            <td>{{$tomador->cpfcnpj}}</td>
+                            <td>{{$tomador->razaosocial}}</td>
+                            <td>{{$tomador->nomefantasia}}</td>
+                            <td>{{$tomador->email}}</td>
+                            <td>{{$tomador->telefone}}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="{{ route('prestador.detalhes', $prestador->id ) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Detalhar"><i class="fas fa-info-circle"></i></a>
-                                    <a href="{{ route('prestador.edicao', $prestador->id ) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('tomador.detalhes', $tomador->id ) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Detalhar"><i class="fas fa-info-circle"></i></a>
+                                    <a href="{{ route('tomador.edicao', $tomador->id ) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -85,10 +85,10 @@
             <div class="d-flex">
                 <div class="mx-auto">
                     @if (isset($pesquisa))
-                        {!! $prestadores->appends($pesquisa)->links() !!}
+                        {!! $tomadores->appends($pesquisa)->links() !!}
 
                     @else
-                        {!! $prestadores->links() !!}
+                        {!! $tomadores->links() !!}
                     @endif
                     
                 </div>
@@ -97,9 +97,6 @@
     </div>
 
 </div>
-
-
-
 
 @stop
 

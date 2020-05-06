@@ -22,7 +22,7 @@
 
 @section('content')
 
-<h3 style="margin-top: -20px;">Dados Gerais</h3>
+<h3 style="margin-top: -20px;">Dados Gerais - Prestador</h3>
 <div class="card">
     <div class="card-body">  
         @csrf
@@ -230,7 +230,5 @@
 @stop
 
 @section('js')
-<script>
-    
-</script>
+<script src="{{asset('js/custom.js')}}"></script>
 @stop

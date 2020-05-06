@@ -1,5 +1,5 @@
 @extends('errors::minimal')
 
-@section('title', __('Service Unavailable'))
+@section('title', __('Serviço Indisponível!'))
 @section('code', '503')
-@section('message', __($exception->getMessage() ?: 'Service Unavailable'))
+@section('message', __($exception->getMessage() ?: 'Serviço Indisponível!'))

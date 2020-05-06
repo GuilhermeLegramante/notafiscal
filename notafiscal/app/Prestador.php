@@ -19,7 +19,7 @@ class Prestador extends Model
     {
         $prestadores = $this->where('razaosocial', 'LIKE', "%{$pesquisa}%")
                             ->orWhere('nomefantasia', 'LIKE', "%{$pesquisa}%")
-                            ->paginate(1);
+                            ->paginate(15);
         return $prestadores;
     }
 

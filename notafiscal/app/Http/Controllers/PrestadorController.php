@@ -18,7 +18,7 @@ class PrestadorController extends Controller
 
     public function index()
     {
-        $prestadores = $this->repository->paginate(1);
+        $prestadores = $this->repository->paginate(15);
 
         return view('fiscal.prestador.prestadores', compact('prestadores'));
     }
