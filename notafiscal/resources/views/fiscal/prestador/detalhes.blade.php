@@ -207,8 +207,15 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12">
-                <a href="{{ url()->previous() }}" class="btn btn-info"><i class="fas fa-chevron-left"></i></a>
+            <div class="col-sm-1">
+                <a href="{{ url()->previous() }}" title="Voltar"  class="btn btn-info"><i class="fas fa-chevron-left"></i></a>
+            </div>
+            <div class="col-sm-1">
+                <form action="{{ route('prestador.excluir', $prestador->id ) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button title="Excluir Prestador" onclick="return confirm('Deseja mesmo excluir o registro?');" type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                </form>
             </div>
         </div>
     </div>

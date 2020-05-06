@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
  */
 
 /*
-Rotas de teste 
-*/ 
-
-
-
+Rotas de teste
+ */
 
 Route::get('testeFlash', function () {
     return view('admin.dashboard');
@@ -26,39 +23,40 @@ Route::get('testeFlash', function () {
 
 Route::post('testeAjax', 'PrestadorController@testeAjax')->name('testeAjax');
 
-Route::get('testeGate', function(){
+Route::get('testeGate', function () {
     return view('admin.novoPrestador');
 })->middleware('can:fiscal');
 
 // Fim rotas de teste
 
-
-
 /*
-    Rotas válidas
-*/
+|--------------------------------------------------------------------------
+| Rotas Válidas
+|--------------------------------------------------------------------------
+|
+ */
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('auth.login');
+/*
+|--------------------------------------------------------------------------
+| Rotas PRESTADOR
+|--------------------------------------------------------------------------
+|
+ */
+Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
+
+    Route::get('/', function () {
+        return view('fiscal.painel');
+    })->name('fiscal.painel');
+    Route::get('fiscal/prestadores', 'PrestadorController@index')->name('prestadores');
+    Route::get('fiscal/prestador/cadastro', 'PrestadorController@cadastro')->name('prestador.cadastro');
+    Route::post('fiscal/prestador/salvar', 'PrestadorController@salvar')->name('prestador.salvar');
+    Route::get('fiscal/prestador/detalhes/{id}', 'PrestadorController@detalhes')->name('prestador.detalhes');
+    Route::get('fiscal/prestador/edicao/{id}', 'PrestadorController@editar')->name('prestador.edicao');
+    Route::put('fiscal/prestadores/{id}', 'PrestadorController@atualizar')->name('prestador.atualizar');
+    Route::delete('fiscal/prestadores/{id}', 'PrestadorController@excluir')->name('prestador.excluir');
+    Route::any('fiscal/prestadores/buscaPelaRazaoSocial', 'PrestadorController@buscaPelaRazaoSocial')->name('prestador.buscaPelaRazaoSocial');
+    Route::get('fiscal/prestadores/verTodos', 'PrestadorController@verTodos')->name('prestador.verTodos');
+
 });
-
-Route::get('admin', function () {
-    return view('admin.dashboard');
-})->middleware('auth')->name('admin');
-
-// CRUD Prestador
-Route::group(['middleware' => ['auth', 'can:fiscal']], function(){
-    Route::get('admin/prestadores', 'PrestadorController@index')->name('prestadores');
-    Route::get('admin/prestador/cadastro', 'PrestadorController@cadastro')->name('prestador.cadastro');
-    Route::post('admin/prestador/salvar', 'PrestadorController@salvar')->name('prestador.salvar');
-    Route::get('admin/prestador/detalhes/{id}', 'PrestadorController@detalhes')->name('prestador.detalhes');
-    Route::get('admin/prestador/edicao/{id}', 'PrestadorController@editar')->name('prestador.edicao');
-    Route::put('admin/prestadores/{id}', 'PrestadorController@atualizar')->name('prestador.atualizar'); 
-});
-
-
-
-
-

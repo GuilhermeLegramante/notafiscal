@@ -167,7 +167,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'admin',
+    'dashboard_url' => '/',
 
     'logout_url' => 'logout',
 
@@ -216,12 +216,12 @@ return [
             'submenu' => [
                 [
                     'text' => ' Cadastrar Prestador',
-                    'url' => 'admin/prestador/cadastro',
+                    'url' => 'fiscal/prestador/cadastro',
                     'icon' => 'fas fa-user-plus',
                 ],
                 [
                     'text' => ' Ver Prestadores',
-                    'url' => 'admin/prestadores',
+                    'url' => 'fiscal/prestadores',
                     'icon' => 'far fa-eye',
                 ],
             ],
@@ -234,12 +234,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Nova NFS-e',
-                    'url' => 'admin/notafiscal/cadastro',
+                    'url' => 'fiscal/notafiscal/cadastro',
                     'icon' => 'fas fa-user-plus',
                 ],
                 [
                     'text' => ' Ver todas NFS-e',
-                    'url' => 'admin/notafiscal/notasfiscais',
+                    'url' => 'fiscal/notafiscal/notasfiscais',
                     'icon' => 'far fa-eye',
                 ],
             ],

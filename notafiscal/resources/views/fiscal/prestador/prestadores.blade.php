@@ -24,7 +24,31 @@
 
 <div class="card">
     <div class="card-header">
-
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <br>
+                        <label>Busca</label>
+                        <form action="{{ route('prestador.buscaPelaRazaoSocial') }}" method="POST" class="form form-inline">
+                            @csrf
+                        <input style="height: 70%; width: 40%; margin-right: 1%;" type="text" name="pesquisa" id="pesquisa" title="Razão Social ou Nome Fantasia" placeholder="Razão Social ou Nome Fantasia" class="form-control" value="{{ $pesquisa['pesquisa'] ?? '' }}">
+                            <button type="submit" class="btn btn-dark btn-sm " title="Pesquisar"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>  
+                </div>
+                
+                <div class="col-sm-4" style="margin-top: 2.6%; margin-left: -450px; padding-right: 1px; width: 120%;">
+                    <div class="form-group">
+                        <br>
+                        <div class="btn-group" role="group">
+                            <a href="{{route('prestador.verTodos')}}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Ver Todos"><i class="fas fa-clipboard-list"></i></a>
+                            <a href="{{route('prestadores')}}" class="btn btn-success btn-sm" title="Ver Paginação"><i class="fas fa-list"></i></a>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -51,7 +75,6 @@
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('prestador.detalhes', $prestador->id ) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="Detalhar"><i class="fas fa-info-circle"></i></a>
                                     <a href="{{ route('prestador.edicao', $prestador->id ) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></a>
-                                    <a href="" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Excluir"><i class="fas fa-trash"></i></a>    
                                 </div>
                             </td>
                         </tr>
@@ -61,7 +84,13 @@
             
             <div class="d-flex">
                 <div class="mx-auto">
-                    {{$prestadores->links()}}
+                    @if (isset($pesquisa))
+                        {!! $prestadores->appends($pesquisa)->links() !!}
+
+                    @else
+                        {!! $prestadores->links() !!}
+                    @endif
+                    
                 </div>
             </div>
         </div>
@@ -82,6 +111,12 @@
 
 @section('js')
 <script>
+
+function confirmaExclusao()
+{
+    confirm("Você deseja realmente excluir o registro?");
+}
+
     
 </script>
 @stop

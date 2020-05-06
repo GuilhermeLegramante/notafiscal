@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Escritorio;
 use App\Prestador;
 use Illuminate\Http\Request;
+use App\Http\Requests\CriaAlteraPrestador;
 
 class PrestadorController extends Controller
 {
@@ -15,54 +16,41 @@ class PrestadorController extends Controller
         $this->repository = $prestador;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $prestadores = $this->repository->paginate(1);
 
-        return view('admin.prestador.prestadores', compact('prestadores'));
+        return view('fiscal.prestador.prestadores', compact('prestadores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function verTodos()
+    {
+        $total = $this->repository->count();
+        $prestadores = $this->repository->paginate($total);
+
+        return view('fiscal.prestador.prestadores', compact('prestadores'));
+
+    }
+
     public function cadastro()
     {
         $escritorios = Escritorio::all();
-        return view('admin.prestador.cadastro', compact('escritorios'));
+        return view('fiscal.prestador.cadastro', compact('escritorios'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function salvar(Request $request, Prestador $prestador)
+    public function salvar(CriaAlteraPrestador $request, Prestador $prestador)
     {
 
         $insert = $prestador->create($request->all());
 
         if ($insert) {
-            return redirect()->route('admin')->with('success', 'Prestador inserido com sucesso!');
+            return redirect()->route('fiscal.painel')->with('success', 'Prestador inserido com sucesso!');
         }
 
         return redirect()->back()->with('error', 'Falha ao inserir');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function detalhes($id)
     {
         $prestador = $this->repository->find($id);
@@ -72,15 +60,9 @@ class PrestadorController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.prestador.detalhes', compact('prestador', 'escritorio'));
+        return view('fiscal.prestador.detalhes', compact('prestador', 'escritorio'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function editar($id)
     {
         $prestador = $this->repository->find($id);
@@ -91,16 +73,9 @@ class PrestadorController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.prestador.edicao', compact('prestador', 'escritorio', 'escritorios'));
+        return view('fiscal.prestador.edicao', compact('prestador', 'escritorio', 'escritorios'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function atualizar(Request $request, $id)
     {
         $prestador = $this->repository->find($id);
@@ -119,15 +94,26 @@ class PrestadorController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function excluir($id)
     {
-        //
+        $prestador = $this->repository->find($id);
+
+        if (!$prestador) {
+            return redirect()->back();
+        }
+
+        $prestador->delete();
+
+        return redirect()->route('prestadores')->with('success', 'Prestador excluído com sucesso!');
+    }
+
+    public function buscaPelaRazaoSocial(Request $request)
+    {
+        $pesquisa = $request->except('_token');
+
+        $prestadores = $this->repository->buscaPelaRazaoSocial($request->pesquisa);
+
+        return view('fiscal.prestador.prestadores', compact('prestadores', 'pesquisa'));
     }
 
     public function testeAjax(Request $request)
@@ -139,4 +125,5 @@ class PrestadorController extends Controller
 
         return response()->json(['success' => 'Form is successfully submitted!']);
     }
+
 }
