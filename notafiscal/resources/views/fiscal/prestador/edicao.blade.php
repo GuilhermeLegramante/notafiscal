@@ -2,6 +2,12 @@
 
 @section('title', 'Editar Dados Prestador')
 
+@section('content_header')
+
+@include('includes.alerts')
+
+@endsection
+
 @section('content')
 <h3 style="margin-top: -20px;">Dados Gerais</h3>
 <form id="" action="{{ route('prestador.atualizar', $prestador->id) }}" class="form" method="post">

@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-@include('fiscal.includes.alerts')
+@include('includes.alerts')
 
 @endsection
 

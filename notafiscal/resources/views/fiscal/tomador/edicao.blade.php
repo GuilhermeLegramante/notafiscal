@@ -2,6 +2,12 @@
 
 @section('title', 'Editar Dados Tomador')
 
+@section('content_header')
+
+@include('includes.alerts')
+
+@endsection
+
 @section('content')
 <h3 style="margin-top: -20px;">Dados Gerais</h3>
 <form id="" action="{{ route('tomador.atualizar', $tomador->id) }}" class="form" method="post">

@@ -17,6 +17,7 @@ class CreateNotasFiscaisTable extends Migration
             $table->id();
             $table->string('numero')->unique;
             $table->date('dataemissao');
+            $table->date('dataprestacao');
             $table->string('serie');
             $table->string('competencia');
             $table->string('ano');
@@ -28,10 +29,10 @@ class CreateNotasFiscaisTable extends Migration
             // Relacionamentos
             $table->unsignedBigInteger('usuario_id');
             $table->unsignedBigInteger('prestador_id');
-            $table->unsignedBigInteger('tomador_id');
+            $table->unsignedBigInteger('tomador_id')->nullable();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('prestador_id')->references('id')->on('prestadores')->onDelete('cascade');
-            $table->foreign('tomador_id')->references('id')->on('tomadores')->onDelete('cascade');
+            $table->foreign('tomador_id')->nullable()->references('id')->on('tomadores')->onDelete('cascade');
 
             $table->timestamps();
         });

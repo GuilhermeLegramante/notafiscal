@@ -244,13 +244,13 @@ return [
             'can' => 'fiscal',
             'submenu' => [
                 [
-                    'text' => 'Nova NFS-e',
-                    'url' => 'fiscal/notafiscal/cadastro',
+                    'text' => 'Emitir NFS-e',
+                    'url' => 'prestador/nfse/emissao/primeiraetapa',
                     'icon' => 'fas fa-file-alt',
                 ],
                 [
                     'text' => 'NFS-e(s) emitida(s)',
-                    'url' => 'fiscal/notafiscal/notasfiscais',
+                    'url' => 'prestador/nfse/nfses',
                     'icon' => 'far fa-newspaper',
                 ],
             ],

@@ -33,7 +33,7 @@
                         <form action="{{ route('prestador.buscaPelaRazaoSocial') }}" method="POST" class="form form-inline">
                             @csrf
                         <input style="height: 70%; width: 40%; margin-right: 1%;" type="text" name="pesquisa" id="pesquisa" title="Razão Social ou Nome Fantasia" placeholder="Razão Social ou Nome Fantasia" class="form-control" value="{{ $pesquisa['pesquisa'] ?? '' }}">
-                            <button type="submit" class="btn btn-dark btn-sm " title="Pesquisar"><i class="fas fa-search"></i></button>
+                        <button type="submit" class="btn btn-dark btn-sm " title="Pesquisar"><i class="fas fa-search"></i></button>
                         </form>
                     </div>  
                 </div>
