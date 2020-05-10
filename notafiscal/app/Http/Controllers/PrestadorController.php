@@ -83,11 +83,11 @@ class PrestadorController extends Controller
         $prestador = $this->repository->find($id);
         $escritorio = Escritorio::where('id', '=', $prestador->escritorio_id)->first();
 
-        $cnaes = DB::select('SELECT * FROM `cnae` inner join `prestador_cnae` on cnae.id = prestador_cnae.id
+        $cnaes = DB::select('SELECT * FROM `cnae` inner join `prestador_cnae` on cnae.id = prestador_cnae.cnae_id
                              where prestador_cnae.prestador_id = ? ', [$id]);
 
-        $atividades = DB::select('SELECT * FROM `atividades` inner join `prestador_atividades` on atividades.id = prestador_atividades.id
-        where prestador_atividades.prestador_id = ? ', [$id]);        
+        $atividades = DB::select('SELECT * FROM `atividades` inner join `prestador_atividades` on atividades.id = prestador_atividades.atividades_id
+        where prestador_atividades.prestador_id = ? ', [$id]);
 
         if (!$prestador) {
             return redirect()->back();
@@ -101,25 +101,61 @@ class PrestadorController extends Controller
         $prestador = $this->repository->find($id);
         $escritorio = Escritorio::where('id', '=', $prestador->escritorio_id)->first();
         $escritorios = Escritorio::all();
+        $cnaes = DB::table('cnae')->get();
+        $atividades = DB::table('atividades')->get();
+
+        $cnaes_cad = DB::select('SELECT * FROM `cnae` inner join `prestador_cnae` on cnae.id = prestador_cnae.cnae_id
+        where prestador_cnae.prestador_id = ? ', [$id]);
+
+        $atividades_cad = DB::select('SELECT * FROM `atividades` inner join `prestador_atividades` on atividades.id = prestador_atividades.atividades_id
+        where prestador_atividades.prestador_id = ? ', [$id]);
 
         if (!$prestador) {
             return redirect()->back();
         }
 
-        return view('fiscal.prestador.edicao', compact('prestador', 'escritorio', 'escritorios'));
+        return view('fiscal.prestador.edicao', compact('prestador', 'escritorio', 'escritorios', 'cnaes', 'atividades', 'cnaes_cad', 'atividades_cad'));
     }
 
     public function atualizar(Request $request, $id)
     {
+
+        // Pega os resultados do select de CNAES
+        $cnaes = $request->cnaes;
+
+        // Pega os resultados do select de Atividades
+        $atividades = $request->atividades;
+
+        // Busca o Prestador pelo id
         $prestador = $this->repository->find($id);
 
         if (!$prestador) {
             return redirect()->back();
         }
 
+        // Deleta os CNAEs e Atividades cadastradas
+        $deletaCnae = DB::delete('delete from prestador_cnae where prestador_id = ?', [$id]);
+        $deletaAtividades = DB::delete('delete from prestador_atividades where prestador_id = ?', [$id]);
+
+        //Insere os cnaes na tabela prestador_cnaes
+        foreach ($cnaes as $cnae) {
+            $insertCnaes = DB::table('prestador_cnae')->insert([
+                'prestador_id' => $id,
+                'cnae_id' => $cnae,
+            ]);
+        }
+
+        //Insere as atividades tabela prestador_atividades
+        foreach ($atividades as $atividade) {
+            $insertAtividades = DB::table('prestador_atividades')->insert([
+                'prestador_id' => $id,
+                'atividades_id' => $atividade,
+            ]);
+        }
+
         $insert = $prestador->update($request->all());
 
-        if ($insert) {
+        if (($insert) && ($insertCnaes) && ($insertAtividades)) {
             return redirect()->route('prestadores')->with('success', 'Dados do Prestador alterados com sucesso!');
         }
 

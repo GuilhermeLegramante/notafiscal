@@ -275,6 +275,66 @@
             </div>
         </div>
         <!-- fim segunda linha -->
+
+        <!-- terceira linha -->
+        <div class="row">
+            <div class="col-sm-12" style="text-align: left;">
+                <div class="form-group">
+                    <label>CNAE(s) Cadastrado(s)</label>     
+                    @foreach($cnaes_cad as $cnae)
+                        <h3>
+                            {{$cnae->codigo . " - " . $cnae->descricao}}
+                        </h3>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!-- fim terceira linha -->
+
+        <!-- quarta linha -->
+        <div class="row">
+            <div class="col-sm-12" style="text-align: left;">
+                <div class="form-group">
+                    <label>Atividade(s) Cadastrada(s)</label>     
+                    @foreach($atividades_cad as $atividade)
+                        <h3>
+                            {{$atividade->codigo . " - " . $atividade->descricao}}
+                        </h3>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!-- fim quarta linha -->
+        <br>
+        <!-- quinta linha -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Editar CNAE(s)</label>&nbsp;<i data-toggle="tooltip" title="Segure CTRL para selecionar mais de um CNAE." class="fas fa-question-circle"></i></a>
+                    <select multiple name="cnaes[]" id="cnaes" class="form-control" required>
+                        @foreach ($cnaes as $cnae)
+                            <option value="{{ $cnae->id}}"> {{$cnae->codigo . " - " . $cnae->descricao}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- fim quinta linha -->
+
+        <!-- sexta linha -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Editar Atividade(s)</label>&nbsp;<i data-toggle="tooltip" title="Segure CTRL para selecionar mais de uma Atividade." class="fas fa-question-circle"></i></a>
+                    <select multiple name="atividades[]" id="atividades" class="form-control" required>
+                        @foreach ($atividades as $atividade)
+                            <option value="{{ $atividade->id}}"> {{$atividade->codigo . " - " . $atividade->descricao}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- fim sexta linha -->
     </div>
 </div>
 
