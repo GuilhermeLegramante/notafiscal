@@ -200,6 +200,37 @@
             </div>
         </div>
         <!-- fim segunda linha -->
+
+        <!-- terceira linha -->
+        <div class="row">
+            <div class="col-sm-12" style="text-align: left;">
+                <div class="form-group">
+                    <label>CNAE(s)</label>     
+                    @foreach($cnaes as $cnae)
+                        <h3>
+                            {{$cnae->codigo . " - " . $cnae->descricao}}
+                        </h3>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!-- fim terceira linha -->
+
+        <!-- quarta linha -->
+        <div class="row">
+            <div class="col-sm-12" style="text-align: left;">
+                <div class="form-group">
+                    <label>Atividade(s)</label>     
+                    @foreach($atividades as $atividade)
+                        <h3>
+                            {{$atividade->codigo . " - " . $atividade->descricao}}
+                        </h3>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!-- fim terceira linha -->
+
     </div>
 </div>
 

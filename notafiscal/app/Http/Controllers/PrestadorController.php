@@ -69,7 +69,7 @@ class PrestadorController extends Controller
                 'atividades_id' => $atividade,
             ]);
         }
-       
+
         if (($insertPrestador) && ($insertCnaes) && ($insertAtividades)) {
             return redirect()->route('fiscal.painel')->with('success', 'Prestador inserido com sucesso!');
         }
@@ -83,11 +83,17 @@ class PrestadorController extends Controller
         $prestador = $this->repository->find($id);
         $escritorio = Escritorio::where('id', '=', $prestador->escritorio_id)->first();
 
+        $cnaes = DB::select('SELECT * FROM `cnae` inner join `prestador_cnae` on cnae.id = prestador_cnae.id
+                             where prestador_cnae.prestador_id = ? ', [$id]);
+
+        $atividades = DB::select('SELECT * FROM `atividades` inner join `prestador_atividades` on atividades.id = prestador_atividades.id
+        where prestador_atividades.prestador_id = ? ', [$id]);        
+
         if (!$prestador) {
             return redirect()->back();
         }
 
-        return view('fiscal.prestador.detalhes', compact('prestador', 'escritorio'));
+        return view('fiscal.prestador.detalhes', compact('prestador', 'escritorio', 'cnaes', 'atividades'));
     }
 
     public function editar($id)
