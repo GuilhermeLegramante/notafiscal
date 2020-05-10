@@ -1,0 +1,41 @@
+[33mcommit f8b55bf3ae46adfca5968308da4fe3100b54065b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32mapi[m[33m)[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Thu May 7 14:58:29 2020 -0300
+
+    Início da emissão da nfse (primeira etapa).
+
+[33mcommit cd71c7dede747b379806225b3d45c905113e76b5[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Wed May 6 17:00:39 2020 -0300
+
+    Implementação parcial do back-end Nota Fiscal.
+
+[33mcommit a8f401893293e68a842daeba4abd0d921256d442[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Wed May 6 08:09:10 2020 -0300
+
+    CRUD Prestador finalizado.
+
+[33mcommit 0a2f26cabf466aee5bae700dbbd86cc422f7930c[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Thu Apr 30 17:35:18 2020 -0300
+
+    Edição Prestador.
+
+[33mcommit cc497bab184b9fc4835fb4a46a726c9fae7e1955[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Thu Apr 30 11:57:26 2020 -0300
+
+    Inserção e Detalhes do Prestador.
+
+[33mcommit 92d089bef3e865afee394e73ab278b2d1a3be235[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Thu Apr 23 13:35:38 2020 -0300
+
+    Recuperação de senha.
+
+[33mcommit 2a927c7dbeece16683c37170a6fa4cd26f742cf0[m
+Author: Guilherme Legramante <guilhermelegramante@gmail.com>
+Date:   Mon Apr 20 15:55:30 2020 -0300
+
+    Primeiro commit.
