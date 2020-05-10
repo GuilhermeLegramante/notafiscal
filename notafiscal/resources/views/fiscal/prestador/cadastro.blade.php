@@ -194,6 +194,36 @@
             </div>
         </div>
         <!-- fim segunda linha -->
+
+        <!-- terceira linha -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>CNAE(s)</label>&nbsp;<i data-toggle="tooltip" title="Segure CTRL para selecionar mais de um CNAE." class="fas fa-question-circle"></i></a>
+                    <select multiple name="cnaes[]" id="cnaes" class="form-control">
+                        @foreach ($cnaes as $cnae)
+                            <option value="{{ $cnae->id}}"> {{$cnae->codigo . " - " . $cnae->descricao}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- fim terceira linha -->
+
+        <!-- quarta linha -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Atividade(s)</label>&nbsp;<i data-toggle="tooltip" title="Segure CTRL para selecionar mais de uma Atividade." class="fas fa-question-circle"></i></a>
+                    <select multiple name="atividades[]" id="atividades" class="form-control">
+                        @foreach ($atividades as $atividade)
+                            <option value="{{ $atividade->id}}"> {{$atividade->codigo . " - " . $atividade->descricao}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- fim quarta linha -->
     </div>
 </div>
 
@@ -221,4 +251,5 @@
 
 @section('js')
 <script src="{{asset('js/custom.js')}}"></script>
+
 @stop

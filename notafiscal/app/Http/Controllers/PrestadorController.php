@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Escritorio;
-use App\Prestador;
-use Illuminate\Http\Request;
 use App\Http\Requests\CriaAlteraPrestador;
+use App\Prestador;
+use DB;
+use Illuminate\Http\Request;
 
 class PrestadorController extends Controller
 {
@@ -35,19 +36,45 @@ class PrestadorController extends Controller
     public function cadastro()
     {
         $escritorios = Escritorio::all();
-        return view('fiscal.prestador.cadastro', compact('escritorios'));
+        $cnaes = DB::table('cnae')->get();
+        $atividades = DB::table('atividades')->get();
+        return view('fiscal.prestador.cadastro', compact('escritorios', 'cnaes', 'atividades'));
     }
 
     public function salvar(CriaAlteraPrestador $request, Prestador $prestador)
     {
+        //Insere o Prestador
+        $insertPrestador = $prestador->create($request->all());
 
-        $insert = $prestador->create($request->all());
+        // Pega os resultados do select de CNAES
+        $cnaes = $request->cnaes;
 
-        if ($insert) {
+        // Pega os resultados do select de Atividades
+        $atividades = $request->atividades;
+
+        $prestador_id = DB::table('prestadores')->where('cpfcnpj', 'LIKE', "{$request->cpfcnpj}")->value('id');
+
+        //Insert na tabela prestador_cnaes
+        foreach ($cnaes as $cnae) {
+            $insertCnaes = DB::table('prestador_cnae')->insert([
+                'prestador_id' => $prestador_id,
+                'cnae_id' => $cnae,
+            ]);
+        }
+
+        //Insert na tabela prestador_atividades
+        foreach ($atividades as $atividade) {
+            $insertAtividades = DB::table('prestador_atividades')->insert([
+                'prestador_id' => $prestador_id,
+                'atividades_id' => $atividade,
+            ]);
+        }
+       
+        if (($insertPrestador) && ($insertCnaes) && ($insertAtividades)) {
             return redirect()->route('fiscal.painel')->with('success', 'Prestador inserido com sucesso!');
         }
 
-        return redirect()->back()->with('error', 'Falha ao inserir');
+        return redirect()->back()->with('error', 'Falha ao inserir Prestador');
 
     }
 

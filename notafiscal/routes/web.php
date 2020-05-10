@@ -96,4 +96,6 @@ Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
     //Route::any('fiscal/nfse/buscaPrestador', 'NfseController@buscaPrestador')->name('nfse.buscaPrestador');
     //Route::any('fiscal/nfse/dadosPrestador', 'NfseController@dadosPrestador')->name('nfse.dadosPrestador');
     //Route::get('fiscal/tomadores/verTodos', 'TomadorController@verTodos')->name('tomador.verTodos');
+    Route::get('ajaxRequest', 'HomeController@ajaxRequest');
+    Route::post('ajaxRequest', 'HomeController@ajaxRequestPost');
 });
