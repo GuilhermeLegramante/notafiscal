@@ -19,7 +19,8 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Nº NFS-e</label>
-                    <input type="text" name="numero" id="numero" class="form-control" value="{{old('numero') ?? $numero}}" disabled>
+                    <input type="hidden" name="numeronfse" value="{{$numeronfse}}">
+                    <input type="text" id="numeronfse" class="form-control" value="{{old('numeronfse') ?? $numeronfse}}" disabled>
                 </div>
             </div>
             <div class="col-sm-2">
@@ -88,6 +89,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label>CPF/CNPJ</label>
+                    <input type="hidden" name="id" value="{{$prestador->id}}">
                     <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control" value="{{old('cpfcnpj') ?? $prestador->cpfcnpj}}" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="14" required>
                 </div>
             </div>

@@ -91,11 +91,11 @@ Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
     //Route::get('fiscal/nfse/', 'NotaFiscalController@index')->name('tomadores');
     Route::get('prestador/nfse/emissao/primeiraetapa', 'NfseController@emissaoPrimeiraEtapa')->name('prestador.nfse.emissao.primeiraetapa');
     Route::post('prestador/nfse/emissao/segundaetapa', 'NfseController@emissaoSegundaEtapa')->name('prestador.nfse.emissao.segundaetapa');
+    Route::post('prestador/nfse/emissao/terceiraetapa', 'NfseController@emissaoTerceiraEtapa')->name('prestador.nfse.emissao.terceiraetapa');
     //Route::post('fiscal/nfse/salvar', 'NfseController@salvar')->name('nfse.salvar');
     //Route::get('fiscal/nfse/detalhes/{id}', 'NfseController@detalhes')->name('nfse.detalhes');
     //Route::any('fiscal/nfse/buscaPrestador', 'NfseController@buscaPrestador')->name('nfse.buscaPrestador');
     //Route::any('fiscal/nfse/dadosPrestador', 'NfseController@dadosPrestador')->name('nfse.dadosPrestador');
     //Route::get('fiscal/tomadores/verTodos', 'TomadorController@verTodos')->name('tomador.verTodos');
-    Route::get('ajaxRequest', 'HomeController@ajaxRequest');
-    Route::post('ajaxRequest', 'HomeController@ajaxRequestPost');
+    
 });

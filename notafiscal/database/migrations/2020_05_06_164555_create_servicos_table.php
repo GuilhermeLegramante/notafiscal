@@ -24,8 +24,8 @@ class CreateServicosTable extends Migration
             $table->double('descontocondicional', 12, 2)->nullable();
             $table->double('reducaobasecalculo', 12, 2)->nullable();
             $table->double('aliquota', 12, 2);
-            $table->enum('responsabilidadeissqn', ['PRESTADOR', 'TOMADOR']);
-            $table->string('municipioissqn');
+            $table->enum('responsabilidadeissqn', ['PRESTADOR', 'TOMADOR'])->nullable();
+            $table->string('municipioissqn')->nullable();
             $table->double('valoraproximadotributos', 12, 2)->nullable();
             $table->enum('exigibilidadeissvariavel', ['EXIGÍVEL',
                 'NÃO INCIDÊNCIA', 'ISENÇÃO', 'EXPORTAÇÃO',

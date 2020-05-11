@@ -9,29 +9,34 @@
 @endsection
 
 @section('content')
-<form id="" action="" class="form" method="post">
-<h3>Dados do Tomador</h3>
-<div class="card">
+
+<h3>Dados do(s) Serviço(s)</h3>
+
+<form id="" action="{{ route('prestador.nfse.emissao.terceiraetapa')}}" class="form" method="post">
+@csrf
+    <input type="hidden" name="dados" value="{{json_encode($dados)}}">
+<div id="card-servico" class="card">
     <div class="card-body">  
-        @csrf
         <!-- primeira linha -->
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="form-group">
-                    <label>CPF/CNPJ</label>
-                    <input type="text" name="cpfcnpjtomador" id="cpfcnpj" class="form-control" value="{{old('cpfcnpj')}}" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="14" required>
+                    <label>CNAE</label>
+                    <select name="cnaes" id="cnaes" class="form-control">
+                        @foreach ($cnaes as $cnae)
+                            <option value="{{ $cnae->id}}"> {{$cnae->codigo . " - " . $cnae->descricao}} </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Razão Social</label>
-                    <input type="text" name="razaosocialtomador" id="razaosocial" class="form-control" value="{{old('razaosocial')}}" required>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label>Nome Fantasia</label>
-                    <input type="text" name="nomefantasiatomador" id="nomefantasia" class="form-control" value="{{old('nomefantasia')}}">
+                    <label>Atividade</label>
+                    <select name="atividades" id="atividades" class="form-control">
+                        @foreach ($atividades as $atividade)
+                            <option value="{{ $atividade->id}}"> {{$atividade->codigo . " - " . $atividade->descricao}} </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -39,23 +44,47 @@
 
         <!-- segunda linha -->
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <div class="form-group">
-                    <label>E-mail</label>
-                    <input type="email" name="emailtomador" id="email" class="form-control" value="{{old('email')}}">
+                    <label>Valor do Serviço (R$)</label>
+                    <input type="text" name="valor" id="valor" class="form-control" value="{{old('valor')}}">
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <div class="form-group">
-                    <label>Telefone</label>
-                    <input type="text" name="telefonetomador" id="telefone" class="form-control" value="{{old('telefone')}}">
+                    <label>Deduções (R$)</label>
+                    <input type="text" name="deducoes" id="deducoes" class="form-control" value="{{old('deducoes')}}">
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <div class="form-group">
-                    <label>CEP</label>
-                    <input type="text" name="ceptomador" id="cep" class="form-control" size="10" maxlength="9"
-                    onblur="pesquisacep(this.value);" value="{{old('cep')}}">
+                    <label>Desconto Condicionado (R$)</label>
+                    <input type="text" name="descontocondicionado" id="descontocondicionado" class="form-control" value="{{old('descontocondicionado')}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Desconto Incondicionado (R$)</label>
+                    <input type="text" name="descontoincondicionado" id="descontoincondicionado" class="form-control" value="{{old('descontoincondicionado')}}">
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="form-group">
+                    <label>Alíquota (%)</label>
+                    <input type="text" name="aliquota" id="aliquota" class="form-control" value="{{old('aliquota')}}">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Exigibilidade de ISS Variável</label>
+                    <select name="exigibilidadeissvariavel" id="exigibilidadeissvariavel" class="form-control">
+                        <option value="EXIGÍVEL">Exigível</option>
+                        <option value="NÃO INCIDÊNCIA">Não Incidência</option>
+                        <option value="ISENÇÃO">Isenção</option>
+                        <option value="IMUNIDADE">Imunidade</option>
+                        <option value="EXIGIBILIDADE SUSPENSA POR DECISÃO JUDICIAL">Suspensa por Decisão Judicial</option>
+                        <option value="EXIGIBILIDADE SUSPENSA POR PROCESSO ADMINISTRATIVO">Suspensa por Processo Administrativo</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -63,46 +92,78 @@
 
         <!-- terceira linha -->
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <div class="form-group">
-                    <label>Rua</label>
-                    <input type="text" name="ruatomador" id="rua" size="60" class="form-control" value="{{old('rua')}}">
-                </div>
-            </div>
-            <div class="col-sm-1">
-                <div class="form-group">
-                    <label>Número</label>
-                    <input type="text" name="numerotomador" id="numero" class="form-control" value="{{old('numero')}}">
+                    <label>Total de ISS (R$)</label>
+                    <input type="text" name="totaliss" id="totaliss" class="form-control" value="{{old('totaliss')}}" disabled>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label>Bairro</label>
-                    <input type="text" name="bairrotomador" id="bairro" size="40" class="form-control" value="{{old('bairro')}}">
+                    <label>COFINS (%)</label>
+                    <input type="text" name="cofins" id="cofins" class="form-control" value="{{old('cofins')}}">
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label>Cidade</label>
-                    <input type="text" name="cidadetomador" id="cidade" size="40" class="form-control" value="{{old('cidade')}}">
+                    <label>CSLL (%)</label>
+                    <input type="text" name="csll" id="csll" class="form-control" value="{{old('csll')}}">
                 </div>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
                 <div class="form-group">
-                    <label>UF</label>
-                    <input type="text" name="uftomador" id="uf" size="2" class="form-control" value="{{old('uf')}}">
+                    <label>PIS (%)</label>
+                    <input type="text" name="pis" id="pis" class="form-control" value="{{old('pis')}}">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>IR (%)</label>
+                    <input type="text" name="ir" id="ir" class="form-control" value="{{old('ir')}}">
                 </div>
             </div>
         </div>
-        <!-- fim terceira linha -->  
+        <!-- fim terceira linha -->
+
     </div>
 </div>
+
+<div id="card-dinamico" class="card-dinamico">
+</div>
+
 
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12" style="text-align: center;">
-                <button type="submit" class="btn btn-success" style="width: 50%;">
+            <div class="col-sm-6" style="text-align: center;">
+                <button id="addServico" class="btn btn-info" >
+                    <i class="fas fa-plus"></i>
+                    Incluir outro(s) Serviço(s) 
+                </button>
+            </div>
+            <div class="col-sm-6" style="text-align: center;">
+                <button onClick="history.go(0)" id="excluirServico" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Excluir Serviço(s) 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6" style="text-align: center;">
+                <a href="{{ url()->previous() }}" class="btn btn-success">
+                    <i class="fas fa-chevron-left"></i>
+                    Voltar 
+                </a>
+            </div>
+            <div class="col-sm-6" style="text-align: center;">
+                <button type="submit" class="btn btn-success">
                     Avançar 
                     <i class="fas fa-chevron-right"></i>
                 </button>
@@ -113,6 +174,18 @@
 
 </form>
 
+<!--
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center;">
+                <button id="btnTeste" onclick="insereServico()" class="btn btn-success" style="width: 50%;">
+                    Teste 
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
 
 @endsection
 
@@ -124,4 +197,31 @@
 
 @section('js')
 <script src="{{asset('js/custom.js')}}"></script>
+<script>
+    $i = 1;
+    $("#addServico").click(function(e) {
+        $i++;
+        e.preventDefault();
+        
+        var $clone = $("#card-servico").clone();
+        
+        $clone.find("*[id]").each(function () {
+            $(this).attr("id", $(this).attr("id") + "_" + $i);
+        });
+
+        $clone.find("*[name]").each(function () {
+            $(this).attr("name", $(this).attr("name") + "_" + $i);
+        });
+
+        $("#card-dinamico").append($clone);
+        $("#card-dinamico").prepend();                       
+    });
+
+    $("#excluirServico").click(function(e) {
+        e.preventDefault();
+        $(".card-dinamico").detach();
+    });
+
+    
+</script>
 @stop
