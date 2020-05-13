@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Nfse;
 use App\Prestador;
 use DB;
+use PDF;
 use Illuminate\Http\Request;
 
 class NfseController extends Controller
@@ -56,48 +57,100 @@ class NfseController extends Controller
     public function emissaoTerceiraEtapa(Request $request)
     {
         // Recupera os dados das etapas anteriores
-        $dadosNfse = $request->dados;
+        $dadosNfse = json_decode($request->dados);
 
-        // Dados do Serviço 1
+        // Recupera todos os dados
+        $dados = (object) $request->all();
+
+        // Recupera o CNAE completo (Serviço 01)
         $cnae = $request->cnaes;
-        $atividades = $request->atividades;
-        $valor = $request->valor;
-        $deducoes = $request->deducoes;
-        $descontocondicionado = $request->descontocondicionado;
-        $descontoincondicionado = $request->descontoincondicionado;
-        $aliquota = $request->aliquota;
-        $exigibilidadeissvariavel = $request->aliquota;
+        $cnaeCompleto = DB::select('SELECT * from `cnae` where `id` = ?', [$cnae]);
+        // Recupera a Atividade completa
+        $atividade = $request->atividades;
+        $atividadeCompleta = DB::select('SELECT * from `atividades` where `id` = ?', [$atividade]);
 
-        // Dados do Serviço 2
-        if ($request->has('cnaes_2')) {
-            $cnae_2 = $request->cnaes_2;
-            $atividades_2 = $request->atividades_2;
-            $valor_2 = $request->valor_2;
-            $deducoes_2 = $request->deducoes_2;
-            $descontocondicionado_2 = $request->descontocondicionado_2;
-            $descontoincondicionado_2 = $request->descontoincondicionado_2;
-            $aliquota_2 = $request->aliquota_2;
-            $exigibilidadeissvariavel_2 = $request->aliquota_2;
-        }
+        // Recupera o CNAE completo (Serviço 02)
+        $cnae2 = $request->cnaes_2;
+        $cnaeCompleto2 = DB::select('SELECT * from `cnae` where `id` = ?', [$cnae2]);
+        // Recupera a Atividade completa
+        $atividade2 = $request->atividades_2;
+        $atividadeCompleta2 = DB::select('SELECT * from `atividades` where `id` = ?', [$atividade2]);
 
-        // Dados do Serviço 3
-        if ($request->has('cnaes_3')) {
-            $cnae_3 = $request->cnaes_3;
-            $atividades_3 = $request->atividades_3;
-            $valor_3 = $request->valor_3;
-            $deducoes_3 = $request->deducoes_3;
-            $descontocondicionado_3 = $request->descontocondicionado_3;
-            $descontoincondicionado_3 = $request->descontoincondicionado_3;
-            $aliquota_3 = $request->aliquota_3;
-            $exigibilidadeissvariavel_3 = $request->aliquota_3;
-        }
+        // Recupera o CNAE completo (Serviço 03)
+        $cnae3 = $request->cnaes_3;
+        $cnaeCompleto3 = DB::select('SELECT * from `cnae` where `id` = ?', [$cnae3]);
+        // Recupera a Atividade completa
+        $atividade3 = $request->atividades_3;
+        $atividadeCompleta3 = DB::select('SELECT * from `atividades` where `id` = ?', [$atividade3]);
+
+        // Recupera o CNAE completo (Serviço 04)
+        $cnae4 = $request->cnaes_4;
+        $cnaeCompleto4 = DB::select('SELECT * from `cnae` where `id` = ?', [$cnae4]);
+        // Recupera a Atividade completa
+        $atividade4 = $request->atividades_4;
+        $atividadeCompleta4 = DB::select('SELECT * from `atividades` where `id` = ?', [$atividade4]);
+
+        // Recupera o CNAE completo (Serviço 05)
+        $cnae5 = $request->cnaes_5;
+        $cnaeCompleto5 = DB::select('SELECT * from `cnae` where `id` = ?', [$cnae5]);
+        // Recupera a Atividade completa
+        $atividade5 = $request->atividades_5;
+        $atividadeCompleta5 = DB::select('SELECT * from `atividades` where `id` = ?', [$atividade5]);
+
+        return view('prestador.nfse.emissao.terceiraetapa',
+            compact('dados', 'dadosNfse', 'cnaeCompleto', 'atividadeCompleta',
+                'cnaeCompleto2', 'atividadeCompleta2', 'cnaeCompleto3', 'atividadeCompleta3',
+                'cnaeCompleto4', 'atividadeCompleta4', 'cnaeCompleto5', 'atividadeCompleta5'));
+
+    }
+
+    public function emitir(Request $request)
+    {
+        $dadosNfse = json_decode($request->dadosNfse);
+        $dados = json_decode($request->dados);
+        $cnaeCompleto = json_decode($request->cnaecompleto);
+        $atividadeCompleta = json_decode($request->atividadecompleta);
+       // dd($dadosNfse);
+
+        // Salva os dados da NFS-e
+        $numero = $dadosNfse->numeronfse;
+        $dataemissao = $dadosNfse->dataemissao;
+        $dataprestacao = $dadosNfse->dataprestacao;
+        $serie = $dadosNfse->serie;
+        $competencia = $dadosNfse->competencia;
+        $ano = $dadosNfse->ano;
+        $basecalculo = $dados->valor;
+        $total = $dados->valor;
+        $aliquota = $dados->aliquota;
+        $valoriss = ($total * $aliquota)/100;
+        $valorliquido = $total - $valoriss;
+        $usuario_id = auth()->user()->id;
+        $prestador_id = $dadosNfse->id;
         
+        $insert = DB::table('notasfiscais')->insert([
+            'numero' => $numero,
+            'dataemissao' => $dataemissao,
+            'dataprestacao' => $dataprestacao,
+            'serie' => $serie,
+            'competencia' => $competencia,
+            'ano' => $ano,
+            'basecalculo' => $basecalculo,
+            'total' => $total,
+            'valoriss' => $valoriss,
+            'valorliquido' => $valorliquido,
+            'usuario_id' => $usuario_id,
+            'prestador_id' => $prestador_id,
+            'tomador_id' => 1,
 
-        
+        ]);
 
-        $dadosNfse = json_decode($dados);
+        //dd($insert);
 
-        dd($dadosNfse);
+        $pdf = PDF::loadView('pdf.nfse', compact('dados', 'dadosNfse', 'cnaeCompleto', 'atividadeCompleta'));
+
+        return $pdf->setPaper('a4')->stream('NFSE.pdf');
+
+
     }
 
 }

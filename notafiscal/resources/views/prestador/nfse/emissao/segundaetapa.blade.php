@@ -17,6 +17,7 @@
     <input type="hidden" name="dados" value="{{json_encode($dados)}}">
 <div id="card-servico" class="card">
     <div class="card-body">  
+
         <!-- primeira linha -->
         <div class="row">
             <div class="col-sm-6">
@@ -24,7 +25,7 @@
                     <label>CNAE</label>
                     <select name="cnaes" id="cnaes" class="form-control">
                         @foreach ($cnaes as $cnae)
-                            <option value="{{ $cnae->id}}"> {{$cnae->codigo . " - " . $cnae->descricao}} </option>
+                            <option value="{{ $cnae->cnae_id}}"> {{$cnae->codigo . " - " . $cnae->descricao}} </option>
                         @endforeach
                     </select>
                 </div>
@@ -34,7 +35,7 @@
                     <label>Atividade</label>
                     <select name="atividades" id="atividades" class="form-control">
                         @foreach ($atividades as $atividade)
-                            <option value="{{ $atividade->id}}"> {{$atividade->codigo . " - " . $atividade->descricao}} </option>
+                            <option value="{{ $atividade->atividades_id}}"> {{$atividade->codigo . " - " . $atividade->descricao}} </option>
                         @endforeach
                     </select>
                 </div>
@@ -43,6 +44,18 @@
         <!-- fim primeira linha -->
 
         <!-- segunda linha -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea name="descricao" id="descricao" rows="1" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- fim segunda linha -->
+
+
+        <!-- terceira linha -->
         <div class="row">
             <div class="col-sm-2">
                 <div class="form-group">
@@ -88,14 +101,14 @@
                 </div>
             </div>
         </div>
-        <!-- fim segunda linha -->
+        <!-- fim terceira linha -->
 
-        <!-- terceira linha -->
+        <!-- quarta linha -->
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label>Total de ISS (R$)</label>
-                    <input type="text" name="totaliss" id="totaliss" class="form-control" value="{{old('totaliss')}}" disabled>
+                    <input type="text" name="valoraproximadotributos" id="valoraproximadotributos" class="form-control" value="{{old('valoraproximadotributos')}}">
                 </div>
             </div>
             <div class="col-sm-2">
@@ -123,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <!-- fim terceira linha -->
+        <!-- fim quarta linha -->
 
     </div>
 </div>
@@ -157,10 +170,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6" style="text-align: center;">
-                <a href="{{ url()->previous() }}" class="btn btn-success">
-                    <i class="fas fa-chevron-left"></i>
-                    Voltar 
-                </a>
+                <button id="voltar" title="Voltar" class="btn btn-success"><i class="fas fa-chevron-left"></i> Voltar</a>
             </div>
             <div class="col-sm-6" style="text-align: center;">
                 <button type="submit" class="btn btn-success">
@@ -222,6 +232,10 @@
         $(".card-dinamico").detach();
     });
 
+    $("#voltar").click(function(e) {
+        e.preventDefault();
+        window.history.back();
+    });
     
 </script>
 @stop

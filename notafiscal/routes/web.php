@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
     Route::get('prestador/nfse/emissao/primeiraetapa', 'NfseController@emissaoPrimeiraEtapa')->name('prestador.nfse.emissao.primeiraetapa');
     Route::post('prestador/nfse/emissao/segundaetapa', 'NfseController@emissaoSegundaEtapa')->name('prestador.nfse.emissao.segundaetapa');
     Route::post('prestador/nfse/emissao/terceiraetapa', 'NfseController@emissaoTerceiraEtapa')->name('prestador.nfse.emissao.terceiraetapa');
+    Route::post('prestador/nfse/emissao/emitir', 'NfseController@emitir')->name('prestador.nfse.emissao.emitir');
+
     //Route::post('fiscal/nfse/salvar', 'NfseController@salvar')->name('nfse.salvar');
     //Route::get('fiscal/nfse/detalhes/{id}', 'NfseController@detalhes')->name('nfse.detalhes');
     //Route::any('fiscal/nfse/buscaPrestador', 'NfseController@buscaPrestador')->name('nfse.buscaPrestador');
