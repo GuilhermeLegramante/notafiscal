@@ -15,14 +15,14 @@ Sistema de emissão de Notas Fiscais de Serviços
 
 ### Níveis de Acesso
 #### Prestador
-Emissão de NFS-e
-Visualização e emissão de relatórios
+- Emissão de NFS-e
+- Visualização e emissão de relatórios
 
 #### Fiscal
-Cadastro de Prestadores
-Cadastro de Tomadores
-Visualização de emissão de relatórios
+- Cadastro de Prestadores
+- Cadastro de Tomadores
+- Visualização de emissão de relatórios
 
 #### Escritório Contábil
-Emissão de NFS-e (clientes)
-Visualização e emissão de relatórios
+- Emissão de NFS-e (clientes)
+- Visualização e emissão de relatórios
