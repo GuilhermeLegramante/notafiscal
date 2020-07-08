@@ -37,8 +37,8 @@ Route::get('testeGate', function () {
  */
 
 Auth::routes();
-Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
 
+Route::group(['middleware' => ['auth', 'can:fiscal']], function () {
     Route::get('/', function () {
         return view('fiscal.painel');
     })->name('fiscal.painel');
